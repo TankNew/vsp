@@ -43,12 +43,6 @@
       </div>
       <div slot="content" class="h-100">
         <header>
-          <b-alert :show="dismissCountDown" variant="info" class="small system-info mb-0" dismissible fade @dismissed="dismissCountDown=0" @dismiss-count-down="countDownChanged">
-            <span class="system-info-text">
-              <i class="fas fa-circle mr-1"/>
-              <span class="system-info-text-content">{{ Event(systemInfoNew.code,systemInfoNew.username) }}</span>
-            </span>
-          </b-alert>
           <div class="server-status">
             <span>
               <i class="fas fa-server text-success mr-1"/>
@@ -75,6 +69,12 @@
             <div class="top_title">{{ currentPage.name }}</div>
           </div>
         </header>
+        <b-alert :show="dismissCountDown" variant="info" class="small system-info mb-0" dismissible fade @dismissed="dismissCountDown=0" @dismiss-count-down="countDownChanged">
+          <span class="system-info-text">
+            <i class="fas fa-circle mr-1"/>
+            <span class="system-info-text-content">{{ Event(systemInfoNew.code,systemInfoNew.username) }}</span>
+          </span>
+        </b-alert>
         <router-view
           ref="home"
           :is-setting="isSetting"
@@ -162,7 +162,7 @@ var websocket = null
 const visitorjson = {
   username: '',
   nickname: '',
-  headimage: './imgs/visitor.png',
+  headimage: './static/imgs/visitor.png',
   chats: []
 }
 
@@ -500,7 +500,6 @@ export default {
                 var visitorNoLogin = JSON.parse(JSON.stringify(visitorjson))
                 visitorNoLogin.username = visitor.username
                 visitorNoLogin.islogin = visitor.islogin
-                visitorNoLogin.headimage = '@/assets/imgs/visitor.png'
                 that.userWatting.push(visitorNoLogin)
               }
             })

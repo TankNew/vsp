@@ -251,7 +251,7 @@ footer {
   bottom: 20px;
 }
 /*系统通知设置*/
-  .system-info{position: absolute; top: 82px; width: 100%;  z-index: 100; }
+  .system-info{width: 100%; z-index: 100;}
 .system-info-text {
   display: block;
   position: relative;
