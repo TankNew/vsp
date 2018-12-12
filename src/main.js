@@ -45,12 +45,57 @@ if (!window.localStorage) {
     'This browser do not supports localStorage. Please change browser to ie 9.0 at least .'
   )
 }
+var app = {
+  initialize: function() {
+    document.addEventListener(
+      'deviceready',
+      this.onDeviceReady.bind(this),
+      false
+    )
+    document.addEventListener(
+      'batterystatus',
+      this.onBatteryStatus.bind(this),
+      false
+    )
+  },
+  // deviceready Event Handler
+  //
+  // Bind any cordova events here. Common events are:
+  // 'pause', 'resume', etc.
+  onDeviceReady: function() {
+    this.receivedEvent('deviceready')
+  },
+  // Update DOM on a Received Event
+  receivedEvent: function(id) {
+    // var parentElement = document.getElementById(id)
+    // var listeningElement = parentElement.querySelector('.listening')
+    // var receivedElement = parentElement.querySelector('.received')
+    // listeningElement.setAttribute('style', 'display:none;')
+    // receivedElement.setAttribute('style', 'display:block;')
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  store,
-  components: { App },
-  template: '<App/>'
-})
+    console.log('Received Event: ' + id)
+
+    cordova.plugins.backgroundMode.enable()
+    cordova.plugins.backgroundMode.overrideBackButton()
+    cordova.plugins.backgroundMode.on('activate', function() {
+      cordova.plugins.backgroundMode.disableWebViewOptimizations()
+    })
+    StatusBar.overlaysWebView(false)
+    StatusBar.backgroundColorByHexString('#000000')
+    /* eslint-disable no-new */
+    new Vue({
+      el: '#app',
+      router,
+      store,
+      components: { App },
+      template: '<App/>'
+    })
+    // console.log(StatusBar)
+  },
+  onBatteryStatus: info => {
+    console.log(
+      'BATTERY STATUS:  Level: ' + info.level + ' isPlugged: ' + info.isPlugged
+    )
+  }
+}
+app.initialize()

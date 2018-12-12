@@ -159,6 +159,7 @@ import tools from '@/utiltools/tools'
 import config from '~/config-lock.json'
 import { logout } from '@/utiltools/lock'
 var websocket = null
+var sendnum = null
 const visitorjson = {
   username: '',
   nickname: '',
@@ -287,10 +288,25 @@ export default {
       else that.isSetting = false
     },
     alertInfo(val, event) {
-      console.info(val)
+      var message = val
+      var title = '确认'
+      var buttonLabels = '确认,取消'
+
+      navigator.notification.confirm(message, event, title, buttonLabels)
+      navigator.notification.beep(1)
+
+      function confirmCallback(buttonIndex) {
+        console.log('You clicked ' + buttonIndex + ' button!')
+      }
     },
     alertError(val) {
-      console.error(val)
+      var title = '错误'
+      var buttonName = '确认'
+      navigator.notification.alert(val, alertCallback, title, buttonName)
+      navigator.notification.beep(1)
+      function alertCallback() {
+        // console.log('Alert is Dismissed!')
+      }
     },
     ...mapMutations({
       setPathName: 'set'
@@ -383,7 +399,7 @@ export default {
         .then(function(response) {
           var json = response.data
           if (json.error === 0) that.companyInfo = JSON.parse(json.content)
-          else that.alertInfo(json.error + ':' + json.detail)
+          else that.alertError(json.error + ':' + json.detail)
         })
         // eslint-disable-next-line handle-callback-err
         .catch(function(error) {
@@ -437,15 +453,39 @@ export default {
         that.kefuList = []
         that.count = 0
         that.changeServerStatus('中断')
+        if (sendnum) {
+          clearInterval(sendnum)
+          sendnum = null
+        }
       }
       function onMessage(evt) {
         //console.log(evt.currentTarget.readyState)
         that.changeServerStatus('正常')
+        if (sendnum) {
+          clearInterval(sendnum)
+          sendnum = null
+        }
+        // sendnum = setInterval(getnums, 200)
         that.Revice(evt.data)
       }
       function onError(evt) {
         //console.log(evt.currentTarget.readyState)
         that.changeServerStatus('连接错误')
+        if (sendnum) {
+          clearInterval(sendnum)
+          sendnum = null
+        }
+      }
+      function getnums() {
+        var json = {
+          id: 0,
+          fromUser: that.kefuinfo.username,
+          toUser: that.kefuinfo.username,
+          content: null,
+          code: 10000,
+          addTime: tools.myTime.UnixToDate(tools.myTime.CurTime(), true, 8)
+        }
+        websocket.send(JSON.stringify(json))
       }
     },
     Revice(data) {
@@ -454,10 +494,14 @@ export default {
       console.log(data)
       try {
         var json = JSON.parse(data)
+        let message = null
+        let person = null
         switch (json.code) {
           case 0:
             // 消息
             that.chatMessage(json, false)
+            message = '您有新的消息'
+            person = json.username
             // if (
             //   that.$electron.remote.BrowserWindow.getFocusedWindow() == null ||
             //   that.$electron.remote.getCurrentWindow().isMinimized()
@@ -467,6 +511,8 @@ export default {
           case 1:
             // 新增等待访客
             that._pushUserWatting(json.username, json.islogin)
+            message = '您有一位新的等待访客'
+            person = '系统通知'
             // if (
             //   that.$electron.remote.BrowserWindow.getFocusedWindow() == null ||
             //   that.$electron.remote.getCurrentWindow().isMinimized()
@@ -519,6 +565,16 @@ export default {
             // 默认显示
             break
         }
+        let isback = cordova.plugins.backgroundMode.isActive()
+        if (message !== null) {
+          if (isback)
+            cordova.plugins.notification.local.schedule({
+              title: 'e德互联客服',
+              text: [{ person: person, message: message }],
+              foreground: true
+            })
+          else navigator.notification.beep(1)
+        }
       } catch (e) {
         var json2 = JSON.parse(JSON.stringify(systeminfo))
         json2.code = data
@@ -570,7 +626,7 @@ export default {
         .then(response => {
           var json = response.data
           if (json.error === 0) that.kefuList = JSON.parse(json.content)
-          else if (json.error) that.alertInfo(json.error + ':' + json.content)
+          else if (json.error) that.alertError(json.error + ':' + json.content)
           else that.alertError('通讯错误')
         })
         .catch(function(error) {
@@ -601,7 +657,7 @@ export default {
                 v.islogin = true
               })
               that.userWatting.concat(visitors)
-            } else that.alertInfo(json.error + ':' + json.content)
+            } else that.alertError(json.error + ':' + json.content)
           })
           .catch(function(error) {
             that.alertError('系统错误')
@@ -674,21 +730,21 @@ export default {
           that.setCurrentChat(_visitor)
           // that.chatIndex = that.userChatTabs.length - 1
         })
-      } else that.alertInfo('您的客户等级只能同时接入5个会话')
+      } else that.alertError('您的客户等级只能同时接入5个会话')
     },
     // 关闭会话
     chatOut(item, isclear) {
       var that = this
       // if (that.userChatTabs.length > 0) {
-      //   that.alertInfo('关闭当前访客会话', response => {
-      //     if (response === 0) {
-      let username = that.currentChat.username
-      that.sendCode(2002, username)
-      that._removeChatTab(username)
-      if (isclear) that._removeUserStorage(username)
-      //     }
-      //   })
-      // } else that.alertInfo('暂无会话')
+      that.alertInfo('关闭当前访客会话', response => {
+        if (response === 1) {
+          let username = that.currentChat.username
+          that.sendCode(2002, username)
+          that._removeChatTab(username)
+          if (isclear) that._removeUserStorage(username)
+        }
+      })
+      // } else that.alertError('暂无会话')
     },
     // 新消息
     chatMessage(chatjson, isOut) {
@@ -725,7 +781,7 @@ export default {
       if (e.shiftKey) {
       } else {
         if (that.message === null || that.message === '') {
-          that.alertInfo('您还没有输入对话内容')
+          that.alertError('您还没有输入对话内容')
         } else {
           var json = {
             id: 0,

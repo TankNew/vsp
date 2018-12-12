@@ -177,7 +177,7 @@ export default {
                       logout()
                     )
                   }
-                } else that.alertInfo(json.error + ':' + json.content)
+                } else that.alertError(json.error + ':' + json.content)
               })
               .catch(error => {
                 that.alertError('系统错误')
@@ -190,12 +190,10 @@ export default {
         })
     },
     alertInfo(val, event) {
-      //val 显示的内容
-      //event 确认之后的事件
-      console.log(val)
+      this.$emit('alertInfo', [val, event])
     },
     alertError(val) {
-      console.log(val)
+      this.$emit('alertError', val)
     }
   }
 }

@@ -9,7 +9,29 @@
   "installed_plugins": {
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.example.hello"
+    },
+    "cordova-plugin-battery-status": {
+      "PACKAGE_NAME": "com.example.hello"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.ednet.csp"
+    },
+    "cordova-plugin-local-notification": {
+      "PACKAGE_NAME": "com.ednet.csp"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.ednet.csp"
+    },
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "com.ednet.csp"
+    },
+    "cordova-plugin-background-mode": {
+      "PACKAGE_NAME": "com.ednet.csp"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "cordova-plugin-badge": {
+      "PACKAGE_NAME": "com.ednet.csp"
+    }
+  }
 }

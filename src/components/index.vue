@@ -63,19 +63,25 @@ export default {
             }, 50)
           } else {
             if (that.errors.has('域名'))
-              that.alertInfo(this.errors.first('域名'))
+              that.alertError(this.errors.first('域名'))
             else if (that.errors.has('用户名'))
-              that.alertInfo(this.errors.first('用户名'))
+              that.alertError(this.errors.first('用户名'))
             else if (that.errors.has('密码'))
-              that.alertInfo(this.errors.first('密码'))
+              that.alertError(this.errors.first('密码'))
           }
         })
         .catch(failure => {
           console.log(failure)
         })
     },
-    alertInfo(val) {
-      alert(val)
+    alertError(val) {
+      var title = '错误'
+      var buttonName = '确认'
+      navigator.notification.alert(val, alertCallback, title, buttonName)
+      navigator.notification.beep(1)
+      function alertCallback() {
+        // console.log('Alert is Dismissed!')
+      }
     }
   }
 }
