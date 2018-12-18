@@ -27,6 +27,12 @@
     },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.ednet.csp"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.ednet.csp"
+    },
+    "cordova-plugin-keyboard": {
+      "PACKAGE_NAME": "com.ednet.csp"
     }
   },
   "dependent_plugins": {

@@ -501,7 +501,7 @@ export default {
             // 消息
             that.chatMessage(json, false)
             message = '您有新的消息'
-            person = json.username
+            person = json.fromUser
             // if (
             //   that.$electron.remote.BrowserWindow.getFocusedWindow() == null ||
             //   that.$electron.remote.getCurrentWindow().isMinimized()

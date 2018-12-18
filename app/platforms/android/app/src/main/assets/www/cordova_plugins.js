@@ -82,6 +82,22 @@ module.exports = [
       "cordova.plugins.backgroundMode",
       "plugin.backgroundMode"
     ]
+  },
+  {
+    "id": "cordova-plugin-splashscreen.SplashScreen",
+    "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+    "pluginId": "cordova-plugin-splashscreen",
+    "clobbers": [
+      "navigator.splashscreen"
+    ]
+  },
+  {
+    "id": "cordova-plugin-keyboard.keyboard",
+    "file": "plugins/cordova-plugin-keyboard/www/keyboard.js",
+    "pluginId": "cordova-plugin-keyboard",
+    "clobbers": [
+      "window.Keyboard"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -94,7 +110,9 @@ module.exports.metadata =
   "cordova-plugin-badge": "0.8.8",
   "cordova-plugin-local-notification": "0.9.0-beta.2",
   "cordova-plugin-dialogs": "2.0.1",
-  "cordova-plugin-background-mode": "0.7.2"
+  "cordova-plugin-background-mode": "0.7.2",
+  "cordova-plugin-splashscreen": "5.0.2",
+  "cordova-plugin-keyboard": "1.2.0"
 };
 // BOTTOM OF METADATA
 });

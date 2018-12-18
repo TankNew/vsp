@@ -33,7 +33,7 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       // 未登录则跳转到登陆界面，query:{ Rurl: to.fullPath}表示把当前路由信息传递过去方便登录后跳转回来；
-      next({ path: '/', query: { Rurl: to.fullPath } })
+      next({ path: '/index', query: { Rurl: to.fullPath } })
     }
   } else {
     next()
@@ -64,6 +64,7 @@ var app = {
   // 'pause', 'resume', etc.
   onDeviceReady: function() {
     this.receivedEvent('deviceready')
+    navigator.splashscreen.hide()
   },
   // Update DOM on a Received Event
   receivedEvent: function(id) {
@@ -82,6 +83,28 @@ var app = {
     })
     StatusBar.overlaysWebView(false)
     StatusBar.backgroundColorByHexString('#000000')
+    cordova.plugins.notification.badge.hasPermission(function(granted) {
+      console.log(granted)
+    })
+    cordova.plugins.notification.badge.clear()
+    cordova.plugins.notification.badge.configure({ autoClear: true })
+    cordova.plugins.notification.local.on('add', function(notification, eopts) {
+      cordova.plugins.notification.badge.increase(1, function(badge) {
+        // badge is now 11 (10 + 1)
+      })
+    })
+    cordova.plugins.notification.local.on('click', function(
+      notification,
+      eopts
+    ) {
+      // console.log(notification)
+      // console.log(eopts)
+      cordova.plugins.notification.badge.clear()
+    })
+    //当打开键盘屏幕收缩
+    Keyboard.shrinkView(null, function(currentValue) {
+      console.log(currentValue)
+    })
     /* eslint-disable no-new */
     new Vue({
       el: '#app',

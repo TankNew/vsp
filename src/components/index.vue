@@ -8,7 +8,7 @@
       <hr class="my-4">
       <form autocomplete="off" @submit.prevent="login">
         <div class="form-group">
-          <input v-validate="'required|min:5'" v-model="UserModel.UserDomain" type="text" class="form-control" name="域名" placeholder="域名">
+          <input v-validate="'required|min:5'" v-model="UserModel.UserDomain" type="text" class="form-control" name="域名" placeholder="域名" @focus="srollbottom">
         </div>
         <div class="form-group">
           <input v-validate="'required|min:5'" v-model="UserModel.UserName" type="text" class="form-control" name="用户名" placeholder="用户名">
@@ -43,6 +43,7 @@ export default {
       ? JSON.parse(JSON.stringify(that.currentUser))
       : {}
   },
+  watch: {},
   methods: {
     login() {
       var that = this
@@ -82,6 +83,9 @@ export default {
       function alertCallback() {
         // console.log('Alert is Dismissed!')
       }
+    },
+    srollbottom() {
+      //  window.scrollTo(0, document.body.scrollHeight)
     }
   }
 }

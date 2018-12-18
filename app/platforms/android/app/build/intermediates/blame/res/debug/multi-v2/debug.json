@@ -1,21 +1,6 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/tank/vsp/app/platforms/android/app/build/intermediates/res/merged/debug/values-b+sr+Latn_values-b+sr+Latn.arsc.flat",
-            "map": [
-                {
-                    "source": "/Users/tank/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/a8ddf9688322164183923aa9964a803c/res/values-b+sr+Latn/values-b+sr+Latn.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    }
-                }
-            ]
-        },
-        {
             "outputFile": "/Users/tank/vsp/app/platforms/android/app/build/intermediates/res/merged/debug/values-v16_values-v16.arsc.flat",
             "map": [
                 {
@@ -26,6 +11,21 @@
                         "startOffsets": "55",
                         "endColumns": "65",
                         "endOffsets": "116"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/Users/tank/vsp/app/platforms/android/app/build/intermediates/res/merged/debug/values-b+sr+Latn_values-b+sr+Latn.arsc.flat",
+            "map": [
+                {
+                    "source": "/Users/tank/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/a8ddf9688322164183923aa9964a803c/res/values-b+sr+Latn/values-b+sr+Latn.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
                     }
                 }
             ]
@@ -61,21 +61,6 @@
             ]
         },
         {
-            "outputFile": "/Users/tank/vsp/app/platforms/android/app/build/intermediates/res/merged/debug/values-it_values-it.arsc.flat",
-            "map": [
-                {
-                    "source": "/Users/tank/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/a8ddf9688322164183923aa9964a803c/res/values-it/values-it.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    }
-                }
-            ]
-        },
-        {
             "outputFile": "/Users/tank/vsp/app/platforms/android/app/build/intermediates/res/merged/debug/values-ml_values-ml.arsc.flat",
             "map": [
                 {
@@ -91,25 +76,10 @@
             ]
         },
         {
-            "outputFile": "/Users/tank/vsp/app/platforms/android/app/build/intermediates/res/merged/debug/values-be_values-be.arsc.flat",
+            "outputFile": "/Users/tank/vsp/app/platforms/android/app/build/intermediates/res/merged/debug/values-it_values-it.arsc.flat",
             "map": [
                 {
-                    "source": "/Users/tank/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/a8ddf9688322164183923aa9964a803c/res/values-be/values-be.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "108",
-                        "endOffsets": "159"
-                    }
-                }
-            ]
-        },
-        {
-            "outputFile": "/Users/tank/vsp/app/platforms/android/app/build/intermediates/res/merged/debug/values-es_values-es.arsc.flat",
-            "map": [
-                {
-                    "source": "/Users/tank/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/a8ddf9688322164183923aa9964a803c/res/values-es/values-es.xml",
+                    "source": "/Users/tank/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/a8ddf9688322164183923aa9964a803c/res/values-it/values-it.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -131,6 +101,36 @@
                         "startOffsets": "55",
                         "endColumns": "100",
                         "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/Users/tank/vsp/app/platforms/android/app/build/intermediates/res/merged/debug/values-es_values-es.arsc.flat",
+            "map": [
+                {
+                    "source": "/Users/tank/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/a8ddf9688322164183923aa9964a803c/res/values-es/values-es.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/Users/tank/vsp/app/platforms/android/app/build/intermediates/res/merged/debug/values-be_values-be.arsc.flat",
+            "map": [
+                {
+                    "source": "/Users/tank/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/a8ddf9688322164183923aa9964a803c/res/values-be/values-be.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "108",
+                        "endOffsets": "159"
                     }
                 }
             ]
