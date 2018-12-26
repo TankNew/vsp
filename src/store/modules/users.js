@@ -1,12 +1,6 @@
 const state = () => {
   return {
-    currentUser: {
-      UserDomain: null,
-      UserName: null,
-      NickName: null,
-      HeadImg: null,
-      UserSign: null
-    },
+    currentUser: null,
     macAddress: null,
     Visitor: null
   }

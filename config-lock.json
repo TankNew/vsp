@@ -1,5 +1,5 @@
 {
-  "HttpUrl": "http://kefu.ednet.cn",
+  "HttpUrl": "http://kefu.ednet.cn:8000",
   "wsUrl": "kefu.ednet.cn:4502",
   "wssUrl": "kefu.ednet.cn:4503"
 }
