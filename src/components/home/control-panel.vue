@@ -24,7 +24,7 @@
     </SliderContent>
     <footer>
       <div class="menu-bar">
-        <a v-for="(item,index) in pages" v-if="item.menu" :key="index" :class="item.url==currentPage.url?'active':''" @click="changePage(item.url)">
+        <a v-for="(item,index) in menubar" :key="index" :class="item.url==currentPage.url?'active':''" @click="changePage(item.url)">
           <i :class="['fas', item.icon]"/>
           {{ item.name }}
         </a>
@@ -48,6 +48,15 @@ export default {
     'pages',
     'isSetting'
   ],
+  computed: {
+    menubar() {
+      let _menubar = []
+      this.pages.forEach(element => {
+        if (element.menu) _menubar.push(element)
+      })
+      return _menubar
+    }
+  },
   data() {
     return {}
   },
