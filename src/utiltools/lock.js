@@ -18,7 +18,13 @@ export const userLogin = ({ UserDomain, UserName, UserPass, SessionId }) => {
           UserName: UserName,
           NickName: json.nickname,
           HeadImg: json.headimage,
-          UserSign: json.sign
+          UserSign: json.sign,
+          phonenumber: json.phonenumber,
+          email: json.email,
+          qqnumber: json.qqnumber,
+          showphonenumber: json.showphonenumber,
+          showemail: json.showemail,
+          showqqnumber: json.showqqnumber
         }
         setCurrentUserToLocalStorage(user)
         setMac(SessionId)
