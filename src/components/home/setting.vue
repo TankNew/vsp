@@ -20,10 +20,10 @@
         <div class="m-5">
           <p class="lead">界面设置</p>
           <mu-divider/>
-          <div style="margin-left:40px; padding:10px 0;">
-            <mu-checkbox label="显示电话" labelClass="demo-radio" uncheckIcon="phone" v-model="kefuData.showphonenumber" checkedIcon="done"/>
-            <mu-checkbox label="显示邮箱" labelClass="demo-radio" uncheckIcon="email" v-model="kefuData.showemail" checkedIcon="done"/>
-            <mu-checkbox label="显示QQ" labelClass="demo-radio" uncheckIcon="chat_bubble_outline" v-model="kefuData.showqqnumber" checkedIcon="done"/>
+          <div>
+            <mu-checkbox label="显示电话" labelClass="mucheckbox" uncheckIcon="phone" v-model="kefuData.showphonenumber" checkedIcon="done"/>
+            <mu-checkbox label="显示邮箱" labelClass="mucheckbox" uncheckIcon="email" v-model="kefuData.showemail" checkedIcon="done"/>
+            <mu-checkbox label="显示QQ" labelClass="mucheckbox" uncheckIcon="chat_bubble_outline" v-model="kefuData.showqqnumber" checkedIcon="done"/>
           </div>
           <mu-divider/>
         </div>

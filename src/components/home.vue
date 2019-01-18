@@ -108,7 +108,7 @@
               {{ kefuinfo.domain }}
             </span>
             <span>
-              <i class="fab fa-creative-commons text-success mr-1"/>版本：1.0.0
+              <i class="fab fa-creative-commons text-success mr-1"/>版本：1.0.1
             </span>
           </div>
           <div class="top_bg">
