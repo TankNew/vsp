@@ -418,3 +418,10 @@ footer {
   left: -8px;
   border-right: 8px solid #dff0d8;
 }
+.scroll-container{
+  height: calc(100% - 60px);
+}
+.scroll{
+  height: 100%;
+  overflow: hidden;
+}

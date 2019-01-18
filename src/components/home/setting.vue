@@ -1,99 +1,101 @@
 <template>
-  <section>
-    <form class="form-horizontal" autocomplete="off" @submit.prevent="submitForm">
-      <div class="p-3">
-        <mu-avatar slot="avatar" :src="kefuData.headimage"/>
-        <mu-raised-button label="上传头像" icon="folder" background-color="#ba68c8" class="align-middle">
-          <vue-base64-file-upload
-            :max-size="customImageMaxSize"
-            :disable-preview="true"
-            class="v1"
-            accept="image/png, image/jpeg"
-            image-class="v1-image"
-            input-class="v1-file"
-            @size-exceeded="onSizeExceeded"
-            @file="onFile"
-            @load="onLoad"
-          />
-        </mu-raised-button>
-        <mu-divider/>
-        <div class="m-5">
-          <p class="lead">界面设置</p>
+  <section class="scroll-container">
+    <scroll ref="scrollsetting" :auto-scroll="false" class="scroll">
+      <form class="form-horizontal" autocomplete="off" @submit.prevent="submitForm">
+        <div class="p-3">
+          <mu-avatar slot="avatar" :src="kefuData.headimage"/>
+          <mu-raised-button label="上传头像" icon="folder" background-color="#ba68c8" class="align-middle">
+            <vue-base64-file-upload
+              :max-size="customImageMaxSize"
+              :disable-preview="true"
+              class="v1"
+              accept="image/png, image/jpeg"
+              image-class="v1-image"
+              input-class="v1-file"
+              @size-exceeded="onSizeExceeded"
+              @file="onFile"
+              @load="onLoad"
+            />
+          </mu-raised-button>
           <mu-divider/>
-          <div>
-            <mu-checkbox label="显示电话" labelClass="mucheckbox" uncheckIcon="phone" v-model="kefuData.showphonenumber" checkedIcon="done"/>
-            <mu-checkbox label="显示邮箱" labelClass="mucheckbox" uncheckIcon="email" v-model="kefuData.showemail" checkedIcon="done"/>
-            <mu-checkbox label="显示QQ" labelClass="mucheckbox" uncheckIcon="chat_bubble_outline" v-model="kefuData.showqqnumber" checkedIcon="done"/>
+          <div class="my-1">
+            <p class="lead">界面设置</p>
+            <mu-divider/>
+            <div>
+              <mu-checkbox label="显示电话" labelClass="mucheckbox" uncheckIcon="phone" v-model="kefuData.showphonenumber" checkedIcon="done"/>
+              <mu-checkbox label="显示邮箱" labelClass="mucheckbox" uncheckIcon="email" v-model="kefuData.showemail" checkedIcon="done"/>
+              <mu-checkbox label="显示QQ" labelClass="mucheckbox" uncheckIcon="chat_bubble_outline" v-model="kefuData.showqqnumber" checkedIcon="done"/>
+            </div>
+            <mu-divider/>
           </div>
-          <mu-divider/>
+          
+          <mu-text-field v-validate="'required'" v-model="kefuData.nickname" :error-text="errors.has('昵称')?errors.first('昵称'):''" label="昵称" hint-text="昵称" name="昵称" icon="location_city" label-float/>
+
+          <mu-text-field label="电话" hintText="电话" name="电话" icon="phone" labelFloat v-model="kefuData.phonenumber" :errorText="errors.has('电话')?errors.first('电话'):''"/>
+          <mu-text-field label="邮箱" hintText="邮箱" name="邮箱" icon="email" labelFloat v-model="kefuData.email" :errorText="errors.has('邮箱')?errors.first('邮箱'):''"/>
+          <mu-text-field
+            label="QQ"
+            hintText="QQ"
+            name="QQ"
+            icon="chat_bubble_outline"
+            labelFloat
+            v-model="kefuData.qqnumber"
+            :errorText="errors.has('QQ')?errors.first('QQ'):''"
+          />
+
+          <mu-text-field
+            v-validate="'required|min:6'"
+            v-if="isPawword"
+            v-model="kefuData.oldPassword"
+            :error-text="errors.has('旧的密码')?errors.first('旧的密码'):''"
+            label="旧的密码"
+            hhint-text="旧的密码"
+            name="旧的密码"
+            icon="lock"
+            label-float
+            type="password"
+          />
+          <mu-text-field
+            v-validate="'min:6'"
+            v-else
+            v-model="kefuData.oldPassword"
+            :error-text="errors.has('旧的密码')?errors.first('旧的密码'):''"
+            label="旧的密码"
+            hhint-text="旧的密码"
+            name="旧的密码"
+            icon="lock"
+            label-float
+            type="password"
+          />
+          <mu-text-field
+            v-validate="'min:6'"
+            ref="新的密码"
+            v-model="kefuData.password"
+            :error-text="errors.has('新的密码')?errors.first('新的密码'):''"
+            label="新的密码"
+            hhint-text="新的密码"
+            name="新的密码"
+            icon="lock"
+            label-float
+            type="password"
+          />
+          <mu-text-field
+            v-validate="'min:6|confirmed:新的密码'"
+            v-model="kefuData.confirmPassword"
+            :error-text="errors.has('确认密码')?errors.first('确认密码'):''"
+            label="确认密码"
+            hhint-text="确认密码"
+            name="确认密码"
+            icon="lock"
+            label-float
+            type="password"
+          />
+          <p class="ml-4">
+            <mu-flat-button slot="actions" primary label="提交" type="submit"/>
+          </p>
         </div>
-        <mu-text-field v-validate="'required'" v-model="kefuData.nickname" :error-text="errors.has('昵称')?errors.first('昵称'):''" label="昵称" hint-text="昵称" name="昵称" icon="location_city" label-float/>
-
-        <mu-text-field label="电话" hintText="电话" name="电话" class="demo-divider-form" icon="phone" labelFloat v-model="kefuData.phonenumber" :errorText="errors.has('电话')?errors.first('电话'):''"/>
-        <mu-text-field label="邮箱" hintText="邮箱" name="邮箱" class="demo-divider-form" icon="email" labelFloat v-model="kefuData.email" :errorText="errors.has('邮箱')?errors.first('邮箱'):''"/>
-        <mu-text-field
-          label="QQ"
-          hintText="QQ"
-          name="QQ"
-          class="demo-divider-form"
-          icon="chat_bubble_outline"
-          labelFloat
-          v-model="kefuData.qqnumber"
-          :errorText="errors.has('QQ')?errors.first('QQ'):''"
-        />
-
-        <mu-text-field
-          v-validate="'required|min:6'"
-          v-if="isPawword"
-          v-model="kefuData.oldPassword"
-          :error-text="errors.has('旧的密码')?errors.first('旧的密码'):''"
-          label="旧的密码"
-          hhint-text="旧的密码"
-          name="旧的密码"
-          icon="lock"
-          label-float
-          type="password"
-        />
-        <mu-text-field
-          v-validate="'min:6'"
-          v-else
-          v-model="kefuData.oldPassword"
-          :error-text="errors.has('旧的密码')?errors.first('旧的密码'):''"
-          label="旧的密码"
-          hhint-text="旧的密码"
-          name="旧的密码"
-          icon="lock"
-          label-float
-          type="password"
-        />
-        <mu-text-field
-          v-validate="'min:6'"
-          ref="新的密码"
-          v-model="kefuData.password"
-          :error-text="errors.has('新的密码')?errors.first('新的密码'):''"
-          label="新的密码"
-          hhint-text="新的密码"
-          name="新的密码"
-          icon="lock"
-          label-float
-          type="password"
-        />
-        <mu-text-field
-          v-validate="'min:6|confirmed:新的密码'"
-          v-model="kefuData.confirmPassword"
-          :error-text="errors.has('确认密码')?errors.first('确认密码'):''"
-          label="确认密码"
-          hhint-text="确认密码"
-          name="确认密码"
-          icon="lock"
-          label-float
-          type="password"
-        />
-        <p class="ml-4">
-          <mu-flat-button slot="actions" primary label="提交" type="submit"/>
-        </p>
-      </div>
-    </form>
+      </form>
+    </scroll>
   </section>
 </template>
 <script>
@@ -103,10 +105,12 @@ import { mapGetters, mapMutations } from 'vuex'
 import tools from '@/utiltools/tools'
 import { setCurrentUserToLocalStorage } from '@/utiltools/auth'
 import { logout } from '@/utiltools/lock'
+import scroll from '@/components/scroll'
 export default {
   middleware: 'authenticated',
   components: {
-    VueBase64FileUpload
+    VueBase64FileUpload,
+    scroll: scroll
   },
   data() {
     return {
@@ -164,9 +168,9 @@ export default {
       that.kefuTemp.phonenumber = that.currentUser.phonenumber
       that.kefuTemp.email = that.currentUser.email
       that.kefuTemp.qqnumber = that.currentUser.qqnumber
-      that.kefuTemp.showphonenumber = that.currentUser.showphonenumber ? 1 : 0
-      that.kefuTemp.showemail = that.currentUser.showemail ? 1 : 0
-      that.kefuTemp.showqqnumber = that.currentUser.showqqnumber ? 1 : 0
+      that.kefuTemp.showphonenumber = that.currentUser.showphonenumber
+      that.kefuTemp.showemail = that.currentUser.showemail
+      that.kefuTemp.showqqnumber = that.currentUser.showqqnumber
       that.kefuData = JSON.parse(JSON.stringify(that.kefuTemp))
     },
     submitForm() {

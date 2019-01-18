@@ -1,4 +1,4 @@
-#Fri Jan 18 16:53:09 CST 2019
+#Fri Jan 18 17:19:20 CST 2019
 base.0=/Users/tank/vsp/app/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
 path.0=classes.dex
 renamed.0=classes.dex
