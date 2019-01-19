@@ -419,7 +419,8 @@ footer {
   border-right: 8px solid #dff0d8;
 }
 .scroll-container{
-  height: calc(100% - 60px);
+  /* height: calc(100% - 60px); */
+  height: 100%;
 }
 .scroll{
   height: 100%;

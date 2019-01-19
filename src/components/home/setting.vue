@@ -28,20 +28,12 @@
             </div>
             <mu-divider/>
           </div>
-          
+
           <mu-text-field v-validate="'required'" v-model="kefuData.nickname" :error-text="errors.has('昵称')?errors.first('昵称'):''" label="昵称" hint-text="昵称" name="昵称" icon="location_city" label-float/>
 
           <mu-text-field label="电话" hintText="电话" name="电话" icon="phone" labelFloat v-model="kefuData.phonenumber" :errorText="errors.has('电话')?errors.first('电话'):''"/>
           <mu-text-field label="邮箱" hintText="邮箱" name="邮箱" icon="email" labelFloat v-model="kefuData.email" :errorText="errors.has('邮箱')?errors.first('邮箱'):''"/>
-          <mu-text-field
-            label="QQ"
-            hintText="QQ"
-            name="QQ"
-            icon="chat_bubble_outline"
-            labelFloat
-            v-model="kefuData.qqnumber"
-            :errorText="errors.has('QQ')?errors.first('QQ'):''"
-          />
+          <mu-text-field label="QQ" hintText="QQ" name="QQ" icon="chat_bubble_outline" labelFloat v-model="kefuData.qqnumber" :errorText="errors.has('QQ')?errors.first('QQ'):''"/>
 
           <mu-text-field
             v-validate="'required|min:6'"
@@ -160,6 +152,7 @@ export default {
     },
     reset() {
       var that = this
+      console.log(that.currentUser)
       that.kefuTemp.username = that.currentUser.UserName
       that.kefuTemp.headimage = that.currentUser.HeadImg
       that.kefuTemp.nickname = that.currentUser.NickName
@@ -168,9 +161,9 @@ export default {
       that.kefuTemp.phonenumber = that.currentUser.phonenumber
       that.kefuTemp.email = that.currentUser.email
       that.kefuTemp.qqnumber = that.currentUser.qqnumber
-      that.kefuTemp.showphonenumber = that.currentUser.showphonenumber
-      that.kefuTemp.showemail = that.currentUser.showemail
-      that.kefuTemp.showqqnumber = that.currentUser.showqqnumber
+      that.kefuTemp.showphonenumber = that.currentUser.showphonenumber === '1'
+      that.kefuTemp.showemail = that.currentUser.showemail === '1'
+      that.kefuTemp.showqqnumber = that.currentUser.showqqnumber === '1'
       that.kefuData = JSON.parse(JSON.stringify(that.kefuTemp))
     },
     submitForm() {
