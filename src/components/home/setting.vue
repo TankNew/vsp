@@ -161,9 +161,9 @@ export default {
       that.kefuTemp.phonenumber = that.currentUser.phonenumber
       that.kefuTemp.email = that.currentUser.email
       that.kefuTemp.qqnumber = that.currentUser.qqnumber
-      that.kefuTemp.showphonenumber = that.currentUser.showphonenumber === '1'
-      that.kefuTemp.showemail = that.currentUser.showemail === '1'
-      that.kefuTemp.showqqnumber = that.currentUser.showqqnumber === '1'
+      that.kefuTemp.showphonenumber = that.currentUser.showphonenumber === 1
+      that.kefuTemp.showemail = that.currentUser.showemail === 1
+      that.kefuTemp.showqqnumber = that.currentUser.showqqnumber === 1
       that.kefuData = JSON.parse(JSON.stringify(that.kefuTemp))
     },
     submitForm() {
@@ -228,6 +228,12 @@ export default {
     alertError(val) {
       this.$emit('alertError', val)
     }
+  },
+  mounted() {
+    var that = this
+    that.$nextTick(function() {
+      that.$refs.scrollsetting.refresh()
+    })
   }
 }
 </script>
